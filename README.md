@@ -32,13 +32,13 @@ and long-form technical explanations.
 
 ## Install
 
-Paste this into your coding agent, replacing `<skill-name>` with one of the
-skills above:
+Paste this into your coding agent:
 
 ```prompt
-Install the `<skill-name>` Agent Skill from
-https://github.com/paulbalaji/skills/tree/main/<skill-name> using your
-normal skill installation mechanism, then verify that it is discoverable.
+Inspect the Agent Skills available at https://github.com/paulbalaji/skills.
+Briefly explain each skill and ask me which ones I want to install. Install my
+selection using your normal skill installation mechanism, then verify that each
+selected skill is discoverable.
 ```
 
 ## Validation
