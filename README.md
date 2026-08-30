@@ -20,21 +20,15 @@ Agent Skills format directly.
 
 ## Install
 
-Clone this repository, then copy or symlink the desired skill directory into
-the skill directory recognized by your agent. Skill locations and installation
-commands vary by client; the portable unit is the folder containing `SKILL.md`.
+Paste this into your coding agent:
 
-For a project-local installation using the standard layout:
-
-```text
-.agents/skills/deslop-repository/
-├── SKILL.md
-└── references/
-    └── operating-guide.md
+```prompt
+Install the `deslop-repository` Agent Skill from
+https://github.com/paulbalaji/skills/tree/main/deslop-repository using your
+normal skill installation mechanism, then verify that it is discoverable.
 ```
 
-See the [Agent Skills specification](https://agentskills.io/specification) for
-the format and your agent's documentation for its discovery path.
+## Validation
 
 Every pull request and push to `main` discovers all `SKILL.md` files and
 validates each skill directory with the pinned official `skills-ref` reference
