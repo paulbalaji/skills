@@ -30,9 +30,9 @@ A de-slopping change is complete only when it:
    every retained or introduced concept;
 3. deletes the superseded path instead of hiding it behind another layer;
 4. preserves security, authority, data exposure, and production invariants;
-5. adds or reuses the narrowest mechanical guard that prevents the specific
-   regression;
-6. includes a negative fixture proving that guard actually fails;
+5. adds or reuses the narrowest mechanical guard when a material regression can
+   recur and existing enforcement does not catch it;
+6. includes a negative fixture when a guard is added or changed;
 7. measures additions, deletions, net change, and any relevant runtime cost;
 8. passes focused and affected-system verification on the exact reviewed head;
 9. merges only green code whose base has not drifted; and
@@ -170,7 +170,7 @@ allowlists, aliases, omitted versus nullable values, error envelopes, dates,
 decimals, large integers, unknown-field behavior, and public-safe projection
 boundaries.
 
-## 7. Add or reuse a narrow durable guardrail
+## 7. Add or reuse proportional regression protection
 
 Choose the guard that matches the demonstrated regression:
 
@@ -186,15 +186,19 @@ Choose the guard that matches the demonstrated regression:
 | Missing critical test evidence | Changed executable line/branch coverage |
 | Retired environment returns | Active-surface source/config guard |
 
-Every slice needs durable mechanical proof, but an existing compiler, build,
-route manifest, schema validator, or reachability check may already be the right
-guard. Add a new tool only when current enforcement cannot catch the regression.
+Every slice needs durable proof, but not every slice needs a new guard. An
+existing compiler, build, route manifest, schema validator, or reachability
+check may already prove the simpler state. A one-off deletion can be complete
+with reproduced reachability evidence and existing compile/build/test coverage.
+Add or modify a guard only when the failure can materially recur and current
+enforcement cannot catch it. Record why existing proof is sufficient when no new
+guard is warranted.
 
-Every guard needs a negative fixture. The fixture must introduce the forbidden
-condition and prove that the canonical local/CI command used to build, start,
-validate, or render production inputs rejects it. Never execute a fixture through
-live production mutation. A test that only asserts the happy path does not prove
-the gate works.
+Every new or modified guard needs a negative fixture. The fixture must introduce
+the forbidden condition and prove that the canonical local/CI command used to
+build, start, validate, or render production inputs rejects it. Never execute a
+fixture through live production mutation. A test that only asserts the happy
+path does not prove a new gate works.
 
 Good guardrails are:
 
@@ -208,6 +212,11 @@ Good guardrails are:
 Warning allowlists require a precise category, source, and message plus a
 reason, owner, and removal condition. Do not turn temporary upstream noise into
 permanent global suppression.
+
+Apply the same discipline to static-analysis baselines, ignored entry points,
+generated-code exclusions, and dependency allowlists: name the consumer or
+tooling limitation that makes the exclusion necessary and define when it should
+be reviewed or removed.
 
 ## 8. Perform the overengineering deletion pass
 
@@ -260,7 +269,7 @@ acceptable. Do not evade them with exclusions.
 
 Use an expanding verification ladder:
 
-1. the negative fixture;
+1. the negative fixture, when a guard was added or changed;
 2. focused unit or contract tests;
 3. affected package tests;
 4. lint, format, and type checks;
@@ -275,7 +284,8 @@ not blindly committed.
 
 ## 11. Review the exact head independently
 
-An independent reviewer should inspect the immutable pull-request head for:
+For a broad or high-risk change, an independent reviewer should inspect the
+immutable pull-request head for:
 
 - correctness and edge cases;
 - security-boundary or authority changes;
@@ -288,6 +298,9 @@ An independent reviewer should inspect the immutable pull-request head for:
 
 Refresh the base, head, checks, reviews, and unresolved threads immediately
 before merge. Review evidence from an earlier SHA is stale.
+
+For a narrow low-risk deletion, use the repository's normal required review.
+Do not add independent-review ceremony merely because this guide was invoked.
 
 ## 12. Use small, auditable pull requests
 
@@ -372,7 +385,8 @@ Name tempting adjacent rewrites and speculative machinery that are excluded.
 
 ## Guardrail
 
-Name the canonical local/CI command used to validate production inputs and the
+Name the existing enforcement that proves the simpler state. If recurrence
+warrants a new or changed guard, name the canonical local/CI command and the
 negative fixture it must reject. Never run the fixture through live production.
 
 ## Acceptance evidence
@@ -391,13 +405,13 @@ State whether deployment is required and why.
 - [ ] Current consumers and trust boundaries traced
 - [ ] Superseded paths, flags, types, tests, and docs deleted
 - [ ] Public/API/security invariants preserved
-- [ ] Narrow guardrail added, or an existing gate proved sufficient
-- [ ] Negative fixture proves the guard fails
+- [ ] Narrow guardrail added, or existing enforcement proved sufficient
+- [ ] New/changed guard has a negative fixture, or marked not applicable
 - [ ] Overengineering deletion pass recorded
 - [ ] Deliberately unbuilt functionality recorded
 - [ ] Gross additions, deletions, and net lines explained
 - [ ] Focused and affected-system checks passed
-- [ ] Exact PR head independently reviewed
+- [ ] Exact PR head independently reviewed when risk/scope warrants it
 - [ ] Exact-head CI green and base unchanged
 - [ ] Merge commit and issue state read back
 - [ ] Required production behavior verified, or deployment marked inapplicable
@@ -423,9 +437,11 @@ For each slice:
   re-exports, shadow paths, or new frameworks;
 - preserve behavior, authority boundaries, public DTO allowlists, secrets, and
   unrelated user work;
-- add or reuse the narrow programmatic guardrail appropriate to the regression;
-- add a negative fixture proving the canonical local/CI production-input check
-  catches it, never a live production mutation;
+- add or reuse a narrow programmatic guardrail only when the failure can
+  materially recur and existing enforcement cannot catch it; otherwise record
+  why the existing compiler/build/test proof is sufficient;
+- when adding or changing a guard, add a negative fixture proving the canonical
+  local/CI production-input check catches it, never a live production mutation;
 - list every introduced concept and its current consumer or named threat;
 - delete speculative or duplicate machinery and record what was deliberately
   not built;
@@ -435,7 +451,9 @@ For each slice:
 - create a small pull request following the repository's title convention, with
   before/after evidence, deletion summary, guardrail proof, residual risk, and
   exact commands;
-- independently review the exact immutable PR head;
+- independently review broad, high-risk, security-boundary, public-contract,
+  CI-policy, or deployment changes; use normal repository review for narrow
+  low-risk deletions;
 - merge only green exact-head changes and read back the merge and issue state;
 - deploy only when live behavior or runtime configuration changed and acceptance
   explicitly requires it, then verify the named live behavior; and

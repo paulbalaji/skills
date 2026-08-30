@@ -18,13 +18,26 @@ guardrails. Its detailed operating guide also includes reusable issue and pull
 request checklists plus a copy-paste prompt for agents that do not support the
 Agent Skills format directly.
 
+### `exact-head-pr-review`
+
+A target-pinned GitHub pull-request workflow for reviewing moving heads,
+reconciling checks and review threads, guarding comments/approvals/merges against
+target drift, and reading back the durable result.
+
+### `write-like-paul`
+
+A context-sensitive writing skill that matches Paul Balaji's content judgment as
+well as phrasing across chat, pull requests, issues, reviews, handoffs, runbooks,
+and long-form technical explanations.
+
 ## Install
 
-Paste this into your coding agent:
+Paste this into your coding agent, replacing `<skill-name>` with one of the
+skills above:
 
 ```prompt
-Install the `deslop-repository` Agent Skill from
-https://github.com/paulbalaji/skills/tree/main/deslop-repository using your
+Install the `<skill-name>` Agent Skill from
+https://github.com/paulbalaji/skills/tree/main/<skill-name> using your
 normal skill installation mechanism, then verify that it is discoverable.
 ```
 

@@ -4,7 +4,7 @@ description: Reduce accidental repository complexity through evidence-led deleti
 license: MIT
 metadata:
   author: paulbalaji
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # De-slop a repository
@@ -56,7 +56,8 @@ For work spanning multiple changes, record for each slice:
 - current consumer, named threat, or demonstrated failure;
 - dependencies and overlapping write sets;
 - behavior and boundaries that must remain true;
-- negative fixture and mechanical guard;
+- regression guard and negative fixture, when the failure is recurring or the
+  slice changes enforcement;
 - acceptance evidence; and
 - base or production drift risk.
 
@@ -81,7 +82,7 @@ the order when current evidence invalidates the initial plan.
 If the premise is false, close or rewrite the task with evidence. Do not invent
 a code change to justify it.
 
-## Add or prove the regression-shaped guard
+## Add or prove proportional regression protection
 
 Choose the narrowest guard that matches the demonstrated failure, such as:
 
@@ -95,17 +96,22 @@ Choose the narrowest guard that matches the demonstrated failure, such as:
 - changed executable line/branch evidence for critical modules; or
 - an active-surface scan for a retired environment or command.
 
-Every slice needs durable mechanical proof, but it need not create a new tool.
-Reuse an existing compiler, build, route manifest, schema check, or reachability
-gate when it directly catches the regression. Add a new guard only when current
-enforcement cannot.
+Every slice needs durable proof, but not every slice needs a new guard. Reuse an
+existing compiler, build, route manifest, schema check, or reachability gate when
+it directly proves the simpler state. A one-off deletion can be complete with
+reproduced reachability evidence plus existing compile/build/test enforcement.
+Add or modify a guard only when the failure can materially recur and current
+enforcement cannot catch it. Record why existing proof is sufficient when no new
+guard is warranted.
 
-Add a negative fixture that introduces the forbidden condition and prove the
-canonical local/CI command used to build, start, validate, or render production
-inputs rejects it. Never execute a fixture through live production mutation. A
-happy-path test does not prove a gate. Keep the guard structured, deterministic,
-bounded, and explicit about generated, historical, vendor, and test-support
-exclusions.
+When adding or changing a guard, add a negative fixture that introduces the
+forbidden condition and prove the canonical local/CI command used to build,
+start, validate, or render production inputs rejects it. Never execute a fixture
+through live production mutation. A happy-path test does not prove a new gate.
+Keep the guard structured, deterministic, bounded, and explicit about generated,
+historical, vendor, and test-support exclusions. Every new baseline, ignore, or
+allowlist entry must name the otherwise-hidden consumer or reason and have a
+review or removal condition.
 
 Do not introduce arbitrary file-size limits, broad clone gates, mandatory
 test-file-change rules, whole-repository mutation testing, generic AI-slop
@@ -143,7 +149,7 @@ or rendered resource count. Do not evade a budget with broad exclusions.
 
 Use an expanding verification ladder:
 
-1. negative fixture;
+1. negative fixture, when a guard was added or changed;
 2. focused unit or contract tests;
 3. affected package tests;
 4. lint, format, and type checks;
@@ -156,12 +162,16 @@ environment-limited checks remain unverified.
 
 Use a small pull request following the repository's title convention (prefer a
 Conventional Commit title when none exists). Include before/after evidence,
-preserved invariants, deletions, guardrail proof, line economics, exact commands,
-residual risk, and rollout applicability.
+preserved invariants, deletions, guardrail proof or the existing enforcement that
+made a new guard unnecessary, line economics, exact commands, residual risk, and
+rollout applicability.
 
-Independently review the immutable head for correctness, security and public
-contract changes, caller blast radius, unnecessary abstractions, dead code,
-test gaps, CI permissions, dependency provenance, and narrative/diff mismatch.
+For broad, high-risk, security-boundary, public-contract, CI-policy, or deployment
+changes, independently review the immutable head for correctness, caller blast
+radius, unnecessary abstractions, dead code, test gaps, permissions, dependency
+provenance, and narrative/diff mismatch. For a narrow low-risk deletion, the
+repository's normal required review is sufficient; do not add review ceremony
+solely because this skill was invoked.
 Refresh the base, head, checks, reviews, and unresolved threads immediately
 before merge. Merge only a green exact head, then read back the merge and issue
 state.
