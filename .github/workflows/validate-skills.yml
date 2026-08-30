@@ -1,0 +1,49 @@
+name: Validate skills
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-skills-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Agent Skills specification
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install pinned validator
+        run: python3 -m pip install --disable-pip-version-check --no-input skills-ref==0.1.1
+
+      - name: Validate every skill
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          skill_count=0
+          while IFS= read -r -d '' skill_file; do
+            skill_dir=$(dirname "$skill_file")
+            echo "Validating $skill_dir"
+            agentskills validate "$skill_dir"
+            skill_count=$((skill_count + 1))
+          done < <(
+            find . -type f -name SKILL.md -not -path './.git/*' -print0
+          )
+
+          if (( skill_count == 0 )); then
+            echo 'No SKILL.md files found.' >&2
+            exit 1
+          fi
+
+          echo "Validated $skill_count skill(s)."
