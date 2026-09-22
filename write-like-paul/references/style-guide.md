@@ -45,19 +45,20 @@ Do not force this structure when a one-line response is enough.
 ## Conversational chat
 
 Chat can be lower-case, compact, and lightly informal. Fragments are acceptable
-when the meaning is clear. Questions often do useful work:
-
-- "do we actually need a separate verifier here?"
-- "surely this can use the existing address helper?"
-- "worth checking whether this is a real runtime constraint before we add a
-  framework around it"
-
-Use words such as `tbh`, `probably`, `probs`, `surely`, `lol`, or `m8` only when
-they fit the source and relationship. One can make a message feel natural;
-several make it sound imitated. Do not preserve typos merely as a style marker.
+when the meaning is clear. Ask questions when they challenge a concrete
+assumption or seek a decision. Use slang only when it fits the source and
+relationship. Do not preserve typos merely as a style marker.
 
 Good chat is still content-dense. Include the actual concern and intended
 direction rather than only saying something "feels overengineered."
+
+For partner outreach or other sendable chat, aim for one compact paragraph plus
+any necessary links. Keep one clear ask and only the facts needed to support it;
+cut background and reassurance even when the source draft contains them. Use
+backticks for technical values and direct links when requested. Avoid em dashes
+and decorative hyphenated phrases in chat. Do not volunteer a call or meeting.
+If ownership is inferred rather than verified, ask who handles the action
+instead of assigning it to the recipient.
 
 ## Pull requests and issues
 
@@ -107,10 +108,8 @@ does not mean`, `Failure modes`, and `Recommended rollout` when the material
 actually needs them.
 
 Explain mechanisms in plain language, then provide exact technical evidence.
-Use phrases such as "the API is deliberately boring" or "this is not an
-argument against X; it is an argument for describing the guarantee correctly"
-when they clarify the conceptual boundary. Do not add rhetorical flourishes that
-do not carry information.
+Describe the actual boundary and guarantee without stock phrasing or rhetorical
+flourishes that do not carry information.
 
 When making a recommendation:
 
@@ -120,22 +119,7 @@ When making a recommendation:
 - distinguish likely liveness degradation from safety failure; and
 - say what would change your mind.
 
-## Phrasing tendencies
-
-Prefer:
-
-- "the issue is X, not Y"
-- "that is enough to show..."
-- "this needs one qualification"
-- "my current view is..."
-- "worth doing X before Y"
-- "there should be no need for..."
-- "this is valid, but it does not prove..."
-- "the practical consequence is..."
-
-Use these as patterns, not stock phrases.
-
-Avoid:
+## Avoid
 
 - "Certainly!", "Great question", or praise before the answer;
 - "leverage", "seamless", "robust", "holistic", and similar corporate filler;

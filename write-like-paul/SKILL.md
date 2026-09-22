@@ -52,6 +52,9 @@ unless the current request supplies or explicitly authorizes that content.
 7. Remove repeated summaries, process narration, boilerplate, and claims of
    quality that the evidence should demonstrate instead.
 
+These are editing checks, not sections to include. In a short message, keep
+only the distinctions and caveats that change the reader's action.
+
 Add content only when it is supported by the supplied material, established
 conversation context, or a clearly identified inference. A useful Paul-style
 rewrite may be more substantive than the input, but it must not become more
@@ -77,6 +80,17 @@ When the user asks only for a rewrite, return the rewritten text without an
 essay about the changes. Offer variants only when audience or tone is genuinely
 ambiguous. For consequential long-form work, briefly flag any unsupported claim
 or content choice that still needs Paul's decision.
+
+For a message Paul intends to paste or send, return only the message when he
+asks for the final text. Do not include an introduction, explanation, or
+approval prompt in the payload. Authorization to send or publish remains
+separate from approval of the wording.
+
+Treat Paul's latest edits as exact constraints. Before returning, check the
+final text for the requested length, removed phrases, punctuation, formatting,
+and links. For a requested percentage cut, compare the prose word count with
+the previous draft, excluding required links. Do not reintroduce something he
+has already asked to cut.
 
 Before returning, check that the draft:
 
