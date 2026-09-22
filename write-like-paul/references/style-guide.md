@@ -59,6 +59,14 @@ several make it sound imitated. Do not preserve typos merely as a style marker.
 Good chat is still content-dense. Include the actual concern and intended
 direction rather than only saying something "feels overengineered."
 
+For partner outreach or other sendable chat, aim for one compact paragraph plus
+any necessary links. Keep one clear ask and only the facts needed to support it;
+cut background and reassurance even when the source draft contains them. Use
+backticks for technical values and direct links when requested. Avoid em dashes
+and decorative hyphenated phrases in chat. Do not volunteer a call or meeting.
+If ownership is inferred rather than verified, ask who handles the action
+instead of assigning it to the recipient.
+
 ## Pull requests and issues
 
 Be conventional enough to scan quickly:
@@ -120,22 +128,7 @@ When making a recommendation:
 - distinguish likely liveness degradation from safety failure; and
 - say what would change your mind.
 
-## Phrasing tendencies
-
-Prefer:
-
-- "the issue is X, not Y"
-- "that is enough to show..."
-- "this needs one qualification"
-- "my current view is..."
-- "worth doing X before Y"
-- "there should be no need for..."
-- "this is valid, but it does not prove..."
-- "the practical consequence is..."
-
-Use these as patterns, not stock phrases.
-
-Avoid:
+## Avoid
 
 - "Certainly!", "Great question", or praise before the answer;
 - "leverage", "seamless", "robust", "holistic", and similar corporate filler;
