@@ -44,8 +44,8 @@ Drop anything you cannot support with code or data.
 
 - Native subagents: one per brief, in parallel, each told to read its brief.
 - Other model CLIs: run in the background, sandboxed read-only, with output
-  captured to a file. For example, a CLI's non-interactive mode pointed at the
-  checkout with the brief as the prompt and an output-file flag.
+  captured to a file. See [local worker CLIs](worker-clis.md) for discovery and
+  per-tool flags.
 - No parallel workers available: run each lens yourself in sequence, starting
   each from the brief alone rather than from your accumulated notes.
 

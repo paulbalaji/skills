@@ -51,7 +51,9 @@ independent pass; a stateful protocol change or a stack deserves the full set.
 
 Give each worker a self-contained brief. Workers do not share your context, so
 the brief must carry everything they need. Use
-[the brief template](references/worker-brief.md).
+[the brief template](references/worker-brief.md). To find and run other model
+CLIs installed locally (resolving aliases to real binaries, checking auth, and
+read-only headless flags), see [local worker CLIs](references/worker-clis.md).
 
 - Write the brief to a file and pass the path or the file contents. Inline
   prompts with backticks or `$()` break under shell expansion; use quoted
