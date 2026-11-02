@@ -3,6 +3,9 @@
 When a change is already running, measure it instead of reasoning about it.
 Everything here is read-only.
 
+First verify which reviewed SHA or immutable image is actually deployed.
+Merge status, build success, and a synthetic benchmark do not prove rollout.
+
 ## Build a rollout timeline
 
 From the orchestrator's history (pod or container image labels, deploy logs,
@@ -12,7 +15,10 @@ rollouts, and short windows are dominated by catch-up, so say so.
 
 ## Compare windows
 
-For each window report median and p95, not single samples:
+Record UTC window bounds, sample counts, query/aggregation, instance count, and
+workload or chain mix. Compare similar load and cache/catch-up conditions;
+otherwise qualify attribution. Use median and p95 where sample density supports
+them; label sparse samples instead of manufacturing percentiles.
 
 - CPU, memory working set and resident memory, threads, file descriptors,
   network. Note growth slopes within the current window (leaks show as steady
@@ -32,10 +38,14 @@ locally: count by normalized message and by tenant or domain, with one sample
 line per bucket. Grep explicitly for the failure modes the code review predicted
 (gap, rewind, halt, retry, incomplete) and report zero hits as evidence too.
 
+For zero hits, state the queried interval, instances, and retention/filter
+limits; absence in sampled logs is not proof the failure cannot occur.
+
 ## Data store state
 
 Use a read-only credential, loaded into a variable and never printed. Bound
-every query with indexed predicates and limits; production tables can be huge.
+every query with indexed predicates, limits, and a statement timeout; production
+tables can be huge. A result limit alone may still cause a full-table scan.
 Useful checks: per-tenant progress and lag, rows that stopped updating, entities
 that are configured but never initialized, and leftover state for removed
 configuration.

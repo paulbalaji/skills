@@ -27,6 +27,9 @@ code for the same reason.
   with tenants, chains, clients, or input size.
 - Hot loops, O(n²) work, blocking calls on async runtimes, unbounded memory.
 - Query plans on production-sized tables; index usage; keyset versus offset.
+- Aggregate in-flight work versus pool capacity, queue timeouts, rate limits,
+  lease/deadline budgets, and cancellation/drain behavior. Faster isolated calls
+  can still overload the shared dependency under concurrent load.
 - Whether a claimed optimisation is visible in real metrics.
 
 ## Compatibility and consumers
@@ -44,6 +47,8 @@ code for the same reason.
   rounding, legacy versions, sentinel values, and error encodings?
 - Read the source of the external contract or protocol rather than trusting
   names.
+- Exercise chain/provider-specific limits and defaults through downstream
+  retries or escalation. Tests of a new formula alone do not prove delivery.
 
 ## Tests, simplicity, and repository rules
 
@@ -52,8 +57,11 @@ code for the same reason.
 - What could be deleted rather than hardened? Is new machinery defending
   complexity the change itself introduced?
 - Repository conventions: type-safety rules, error-handling rules, formatting.
+- Benchmarks: exact source hashes, baseline, pinned runtime, workload, cache
+  state, concurrency, and repeatable commands/raw results. Distinguish synthetic
+  speedups from measured production improvement.
 
-## Production evidence (post-merge only)
+## Production evidence (when deployed)
 
 - Rollout timeline, resource and error deltas per build, health signals, logs,
   and data-store state. See [production evidence](production-evidence.md).
