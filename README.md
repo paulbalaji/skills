@@ -6,6 +6,16 @@ Portable [Agent Skills](https://agentskills.io/) for reliable software work.
 
 ## Available skills
 
+### `comprehensive-review`
+
+A harness-agnostic supervisor workflow for comprehensive reviews: choose
+orthogonal review lenses, brief independent workers, and consolidate verified
+findings into one review. It tracks prior findings across rereviews, adds
+production evidence for deployed changes, and optionally fixes verified
+findings with regression checks. Workers can be subagents or other model CLIs;
+sequential passes are a disclosed fallback. Posting and other mutations require
+authorization.
+
 ### `deslop-repository`
 
 An evidence-first, deletion-led workflow for simplifying mature repositories
