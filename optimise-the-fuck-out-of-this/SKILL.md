@@ -4,7 +4,7 @@ description: Find and fix performance bottlenecks through runtime evidence, hot-
 license: MIT
 metadata:
   author: paulbalaji
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Optimise the fuck out of this
@@ -61,6 +61,9 @@ Read only the references relevant to the target:
   signals are available or instrumentation needs improvement.
 - [Measurement and reporting](references/measurement.md) before designing the
   baseline and comparison experiments.
+- [Presenting improvements](references/reporting.md) before writing results,
+  tables, charts, or a performance PR. Choose metrics, units, and claims that
+  explain impact; every displayed row must help the reader judge the change.
 
 ## Default design bias
 
@@ -116,9 +119,14 @@ checklist. Clearly identify remaining measured bottlenecks and untested ideas.
 
 Lead with what improved and the measured effect. Include the important changes,
 preserved behavior, baseline/candidate revisions, exact reproduction commands,
-raw results, and a readable visualization of the comparisons. Show absolute
-values, sample counts, uncertainty, throughput, resource cost, and tail behavior
-where relevant. Distinguish measured results, extrapolation, and hypotheses.
+and retained raw results. Follow [the reporting guide](references/reporting.md):
+pair absolute before/after values with a clear explanation of impact and use
+percentages or multiples when they make that impact easier to judge. Select
+metrics for the bottleneck and claim; do not fill a table with numbers merely
+because they were collected. Include relevant tradeoffs, controls, uncertainty,
+and evidence limits. Use tables and visualizations when they clarify the result;
+scale-test suites should include the requested plots. Distinguish measured
+results, extrapolation, and hypotheses.
 
 State correctness checks, rejected changes, remaining bottlenecks, evidence
 gaps, and rollout requirements. A local benchmark establishes local performance;

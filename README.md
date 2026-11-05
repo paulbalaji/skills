@@ -45,6 +45,11 @@ and visualizations. Includes relationship-aware database tests at 10x, 100x, and
 1000x scale plus wide-event logging guidance based on
 [Logging Sucks](https://loggingsucks.com/).
 
+Its reporting guide defines when to use absolute savings, percentages or speedup
+multiples; distinguishes latency, CPU, memory and work counts; and requires each
+table row to explain an impact or tradeoff. It draws on public performance PRs
+and keeps local, modeled and production claims separate.
+
 Example: `$optimise-the-fuck-out-of-this` on a service or package to find, fix,
 and measure its bottlenecks. Ask for an audit or plan to keep it read-only.
 
