@@ -34,6 +34,20 @@ A target-pinned GitHub pull-request workflow for reviewing moving heads,
 reconciling checks and review threads, guarding comments/approvals/merges against
 target drift, and reading back the durable result.
 
+### `optimise-the-fuck-out-of-this`
+
+An aggressive, evidence-driven performance workflow: inspect running-service
+signals, eliminate async waterfalls and contention, reduce database over-fetching
+and JSONB costs, improve data layout and allocation, and evaluate AVIF/JPEG XL
+and zstd/Brotli for media and data compression. It favors structural
+fixes over caches and requires reproducible before/after measurements, uncertainty,
+and visualizations. Includes relationship-aware database tests at 10x, 100x, and
+1000x scale plus wide-event logging guidance based on
+[Logging Sucks](https://loggingsucks.com/).
+
+Example: `$optimise-the-fuck-out-of-this` on a service or package to find, fix,
+and measure its bottlenecks. Ask for an audit or plan to keep it read-only.
+
 ### `write-like-paul`
 
 A context-sensitive writing skill that matches Paul Balaji's content judgment as
