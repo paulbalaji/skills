@@ -7,6 +7,8 @@ Measure the limiting resource and user-facing outcome: p50/p95/p99 latency,
 throughput, CPU, allocations, RSS/GC, database calls/bytes, lock and queue waits,
 or cost per completed operation as relevant. Include correctness, error rate,
 timeouts, and peak in-flight work. Define acceptable tail/resource tradeoffs.
+Use [the reporting guide](reporting.md) to choose metrics that answer a concrete
+question. Collection can be broad; the reader-facing result should be selective.
 
 Capture baseline and candidate source revisions, dirty patches if any, lockfile
 and build/artifact identity, pinned toolchain, optimization/build flags, hardware,
@@ -49,22 +51,28 @@ Do not claim significance unless the experiment and analysis support it.
 
 ## Make the evidence inspectable
 
-Deliver exact commands, the manifest, raw machine-readable samples, summary
-tables, and a visualization generated from those samples. Prefer the project's
-existing plotting tools; avoid adding a dashboard stack for a static comparison.
+Retain exact commands, the manifest, and raw machine-readable samples in a
+durable evidence location. Present the decision and a compact comparison using
+[the reporting guide](reporting.md). Put detailed controls and analysis behind
+that summary. Link an immutable artifact/report or evidence revision; a path
+that exists only in the author's checkout is not reproducible for reviewers.
+Keep large one-off harnesses, raw samples, and plots out of ordinary production
+diffs unless requested or required by repository convention. Reusable regression
+or load tooling can belong in the repository. Preserve evidence separately
+rather than deleting its provenance to shrink a PR.
+
+Use visualizations for scale curves, distributions, or comparisons whose shape
+helps the decision; a single clear result can be a sentence. Generate charts
+from retained data using the project's tools. Avoid adding a dashboard stack
+for a static comparison.
 
 - Compare before/after latency and resource use with units and uncertainty.
 - For scale tests, plot latency and throughput against actual dataset size or
   load; label logarithmic axes and the dimensions being scaled.
 - Show failures, timeouts, budgets, and tail regressions. Distinguish missing
   measurements from zero values; do not connect unmeasured cells as observations.
-- Define ratios: latency speedup = before / after; throughput gain = after /
-  before. Always show absolute values alongside them.
-
-Use a concise result ledger when several changes are involved:
-
-| Change | Workload | Before | After | Uncertainty | Correctness | Decision |
-| --- | --- | --- | --- | --- | --- | --- |
+- Follow the reporting guide's ratio definitions, unit conventions, and row
+  acceptance checks. Do not turn the internal candidate ledger into the report.
 
 Link retained artifacts and name unrun checks. After authorized deployment,
 compare representative traffic windows and verify version, error rate, tails,
