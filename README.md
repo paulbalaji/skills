@@ -38,7 +38,8 @@ target drift, and reading back the durable result.
 
 An aggressive, evidence-driven performance workflow: inspect running-service
 signals, eliminate async waterfalls and contention, reduce database over-fetching
-and JSONB costs, and improve data layout and allocation. It favors structural
+and JSONB costs, improve data layout and allocation, and evaluate AVIF/JPEG XL
+and zstd/Brotli for media and data compression. It favors structural
 fixes over caches and requires reproducible before/after measurements, uncertainty,
 and visualizations. Includes relationship-aware database tests at 10x, 100x, and
 1000x scale plus wide-event logging guidance based on

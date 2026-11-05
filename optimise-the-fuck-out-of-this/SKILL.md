@@ -55,6 +55,8 @@ Read only the references relevant to the target:
   waterfalls, lock contention, repeated parsing, allocations, or memory layout.
 - [Database access and scale testing](references/database.md) for projections,
   JSONB, query plans, schema changes, or relationship-aware load suites.
+- [Compression and media formats](references/compression.md) for oversized
+  images, responses, artifacts, stored data, or expensive transfers.
 - [Runtime evidence and wide events](references/observability.md) when runtime
   signals are available or instrumentation needs improvement.
 - [Measurement and reporting](references/measurement.md) before designing the
@@ -62,6 +64,8 @@ Read only the references relevant to the target:
 
 ## Default design bias
 
+- Check cheap structural wins before a major rewrite: oversized media,
+  uncompressed payloads, over-fetching, and repeated work can dominate the cost.
 - Remove unnecessary sequential async work; bound genuinely independent work
   against the capacity of the whole system.
 - Reduce shared mutable state. Consider ownership, sharding, or actors with
@@ -69,6 +73,8 @@ Read only the references relevant to the target:
 - Select only the database fields the caller consumes. Keep frequently accessed,
   stable fields out of large JSONB documents when a typed column fits.
 - Remove redundant parsing, compilation, allocation, copying, and serialization.
+- Evaluate AVIF/JPEG XL for images and zstd/Brotli for suitable data and delivery
+  paths. Verify consumer support and total encode/transfer/decode cost.
 - Design around access patterns: contiguous storage, compact IDs, hot/cold
   separation, arrays, bitsets, and inline capacity where they pay off.
 - Do not add caches as the performance fix. Inventory existing application
